@@ -3,7 +3,7 @@ import { gql } from "apollo-server-express";
 export const schema = gql`
   type Query {
     hello: String!
-    cat(name: String): [Cat!]!
+    cat(name: String, sort: SortQuery, page: PageQuery): [Cat!]!
     cats: [Cat!]!
     languages: [Language!]!
   }
@@ -40,5 +40,17 @@ export const schema = gql`
   }
   type Mutation {
     createCat(name: String!): Cat!
+  }
+  input SortQuery {
+    field: String!
+    direction: Order
+  }
+  input PageQuery {
+    number: Int!
+    size: Int!
+  }
+  enum Order {
+    ascending
+    descending
   }
 `;

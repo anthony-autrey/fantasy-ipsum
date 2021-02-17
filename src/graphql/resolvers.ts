@@ -1,12 +1,27 @@
 import { ICat } from "../mongoose/interfaces";
 import { Cat, Language } from "../mongoose/models";
+import { SortQuery, PageQuery } from "./interfaces";
+const maxResultCount = 1000;
 
 export const resolvers = {
   Query: {
-    hello: (): string => `suh`,
-    cat: async (parent: any, args: { name: string }) => {
-      const cat = await Cat.find({ name: args.name }).exec();
-      console.log({ cat });
+    cat: async (
+      parent: any,
+      args: { name: string; sort: SortQuery; page: PageQuery }
+    ) => {
+      const sortQuery = getSortQuery(args.sort);
+      const maxResults = Math.min(
+        args.page?.size || maxResultCount,
+        maxResultCount
+      );
+      const index =
+        args.page?.number && args.page?.size
+          ? args.page.number * args.page.size
+          : 0;
+      const cat = await Cat.find({ name: { $regex: args.name || `` } })
+        .limit(maxResults)
+        .skip(index)
+        .sort(sortQuery);
       return cat;
       // return users.find(user => user.id === args.id);
     },
@@ -15,7 +30,6 @@ export const resolvers = {
     },
     languages: async () => {
       const languages = await Language.find();
-      console.log({ languages });
       return languages;
     },
   },
@@ -28,3 +42,14 @@ export const resolvers = {
     },
   },
 };
+
+function getSortQuery(sort: SortQuery) {
+  const sortQuery: any = {};
+  if (sort && sort.field) {
+    let direction = 1;
+    if (sort.direction && sort.direction === `descending`) direction = -1;
+    if (sort.field == `id`) sort.field = `_id`;
+    sortQuery[sort.field] = direction;
+  }
+  return sortQuery;
+}
