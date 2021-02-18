@@ -25,9 +25,18 @@ const startServer = async () => {
     useUnifiedTopology: true,
   });
 
-  app.listen({ port: 4000 }, () =>
-    console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
-  );
+  app.listen({ port: 4000 }, () => {
+    // https://patorjk.com/software/taag/#p=display&h=1&v=0&f=Santa%20Clara&t=Fantasy%20Ipsum
+    console.log(`
+ ______                              ___                    
+ (  /            _/_                 ( /                     
+  -/--__,  _ _   /  __,  (   __  ,    /  ,_   (   , , _ _ _  
+ _/  (_/(_/ / /_(__(_/(_/_)_/ (_/_  _/__/|_)_/_)_(_/_/ / / /_
+                               /        /|                   
+                              '        (/                    
+    `);
+    console.log(`Server ready at http://localhost:4000${server.graphqlPath}`);
+  });
 };
 
 startServer();
