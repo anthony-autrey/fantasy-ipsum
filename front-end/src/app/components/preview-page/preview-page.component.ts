@@ -1,7 +1,7 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { languagesPerPage } from 'src/constants';
-import { LanguageService } from '../language.service';
+import { LanguageService } from '../../language.service';
 
 @Component({
   selector: 'app-preview-page',
