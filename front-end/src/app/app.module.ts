@@ -8,6 +8,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { PreviewPageComponent } from './components/preview-page/preview-page.component';
 import { GraphQLModule } from './graphql.module';
+import { LanguagesComponent } from './views/languages/languages.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { GraphQLModule } from './graphql.module';
     NavBarComponent,
     PaginationComponent,
     PreviewPageComponent,
+    LanguagesComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, GraphQLModule],
   providers: [],
