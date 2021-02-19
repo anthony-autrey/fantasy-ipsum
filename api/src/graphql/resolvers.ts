@@ -37,7 +37,9 @@ export const resolvers = {
         .limit(maxResults)
         .skip(index)
         .sort(sortQuery);
-      return languages;
+
+      const totalCount = Language.countDocuments();
+      return { languages, totalCount };
     },
   },
   Mutation: {

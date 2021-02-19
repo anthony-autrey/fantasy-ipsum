@@ -1,6 +1,8 @@
 import { gql } from "apollo-server-express";
 
 export const schema = gql`
+  # Queries ################################################
+
   type Query {
     languages(
       id: String
@@ -9,8 +11,10 @@ export const schema = gql`
       owner: String
       sort: SortQuery
       page: PageQuery
-    ): [Language!]!
+    ): LanguageResult!
   }
+
+  # Schema ################################################
 
   type Language {
     id: ID!
@@ -28,6 +32,7 @@ export const schema = gql`
     useConsonantSuffixProbability: Float!
     graphemes: [Grapheme!]
   }
+
   type Length {
     min: Int!
     max: Int!
@@ -40,6 +45,15 @@ export const schema = gql`
     middleWeight: Int!
     endingWeight: Int!
   }
+
+  # Results ################################################
+
+  type LanguageResult {
+    languages: [Language!]!
+    totalCount: Int!
+  }
+  # Mutations ################################################
+
   type Mutation {
     createLanguage(
       name: String!
@@ -83,6 +97,8 @@ export const schema = gql`
     addLanguageGrapheme(id: String!, grapheme: GraphemeInput!): Language!
   }
 
+  # Inputs ################################################
+
   input LengthInput {
     min: Int!
     max: Int!
@@ -105,6 +121,8 @@ export const schema = gql`
     field: String!
     direction: Order
   }
+
+  # Enumerations ################################################
 
   enum Order {
     ascending

@@ -1,0 +1,19 @@
+<nav *ngIf="showPagination" class="pagination is-right p-5 pt-0" role="navigation" aria-label="pagination">
+    <a class="pagination-previous" (click)="setCurrentPage(currentPage - 1)" [attr.disabled]="showPrevious ? null : true">Previous</a>
+    <a class="pagination-next" (click)="setCurrentPage(currentPage + 1)" [attr.disabled]="showNext ? null : true">Next page</a>
+    <ul class="pagination-list">
+      <ng-container *ngIf="showFirstEllipsis">
+        <li><a class="pagination-link"  (click)="setCurrentPage(1)">{{1 }}</a></li>
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+      </ng-container>
+      <li *ngIf="currentPage === pageCount && pageCount > 2"><a class="pagination-link"  (click)="setCurrentPage(currentPage - 2)">{{ currentPage - 2 }}</a></li>
+      <li *ngIf="showPrevious"><a class="pagination-link"  (click)="setCurrentPage(currentPage - 1)">{{ currentPage - 1 }}</a></li>
+      <li><a class="pagination-link is-current" >{{ currentPage }}</a></li>
+      <li *ngIf="showNext"><a class="pagination-link"  (click)="setCurrentPage(currentPage + 1)"> {{ currentPage + 1}}</a></li>
+      <li *ngIf="currentPage === 1 && pageCount > 2"><a class="pagination-link"  (click)="setCurrentPage(currentPage + 2)"> {{ currentPage + 2}}</a></li>
+      <ng-container *ngIf="showLastEllipsis">
+        <li><span class="pagination-ellipsis">&hellip;</span></li>
+        <li><a class="pagination-link" (click)="setCurrentPage(pageCount)" >{{ pageCount }}</a></li>
+      </ng-container>
+    </ul>
+  </nav>
